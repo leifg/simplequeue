@@ -1,0 +1,5 @@
+# general queueing
+queue: /opt/queue/queue.txt
+growlnotify_cli: /usr/local/bin/growlnotify
+
+#add custom parameters for your processing here
