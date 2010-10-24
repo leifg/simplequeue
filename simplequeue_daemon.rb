@@ -11,7 +11,7 @@ queue_file = @@config['queue']
 def notify (filename, success)
   if filename and @@config['growlnotify_cli']
     success_string = success ? "succeeded" : "failed"
-    sucess_title = success ? "sucess" : "fail"
+    sucess_title = success ? "success" : "fail"
     success_image = success ? File.expand_path(File.dirname(__FILE__) + "/img/success.png") : File.expand_path(File.dirname(__FILE__) + "/img/fail.png") 
     options = "-n simplequeue -t #{sucess_title} --image '#{success_image}' -m 'Processing #{filename} #{success_string}'"
     system %(#{@@config['growlnotify_cli']} #{options} &)
