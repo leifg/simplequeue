@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
 puts ARGV[0]
+puts "waiting 10 seconds"
+sleep 10
