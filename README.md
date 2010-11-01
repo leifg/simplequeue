@@ -25,7 +25,7 @@ for running the unit tests, you'll also need fakefs
 
 ### Configuration
 
-To get started, just add the absolute path to your `queue_dir` in `config/config.yml`. All the files necessary for queueing will be stored in this directory. Specify a `queue_prefix` if you want the queue files to start differently than `queue.txt`.
+To get started, copy the file `config/config.yml.example` to `config/config.yml` abd add the absolute path to your `queue_dir`. All the files necessary for queueing will be stored in this directory. Specify a `queue_prefix` if you want the queue files to start differently than `queue.txt`.
 Write the script for the task to be executed in `scripts/process`. The task will be given as a string as first parameter to the script.
 If you want you can add custom handling for success and error in `scripts/success` and `scripts/error`.
 To enable growl notification just ensure that the path to the [growlnotify](http://growl.info/extras.php) binary is set correctly in `growlnotify_cli`.
