@@ -15,7 +15,6 @@ def notify(task, success)
     sucess_title = success ? "success" : "fail"
     success_image = success ? File.expand_path(File.dirname(__FILE__) + "/img/success.png") : File.expand_path(File.dirname(__FILE__) + "/img/fail.png") 
     options = "-n simplequeue -t #{sucess_title} --image '#{success_image}' -m \"Processing #{task} #{success_string}\""
-    puts "run growl: #{@@config['growlnotify_cli']} #{options} &"
     system ("#{@@config['growlnotify_cli']} #{options} &")
   end
 end
@@ -37,9 +36,9 @@ def determine_next_file(dir, prefix)
   toReturn
 end
 
-loop do
-  log.level = Logger::DEBUG
   log.info("--- simplequeue daemon started ---")
+loop do
+  log.level = Logger::INFO
   task = nil
   rest_of_file = nil
 
@@ -59,7 +58,7 @@ loop do
     end
   
     task.chomp!
-    log.info("read the line: " + task)
+    log.debug("read the line: " + task)
     task = Escape.shell_single_word(task)
     process_command = File.expand_path(File.dirname(__FILE__) + "/scripts/process ") + task
   
@@ -67,10 +66,10 @@ loop do
     
     success = true
     success = system process_command
-    log.info("return value or script execution: "+success.to_s)
+    log.debug("return value or script execution: "+success.to_s)
     
     if (success)
-      log.info("execution successfull")
+      log.debug("execution successfull")
       system File.expand_path(File.dirname(__FILE__) +"/scripts/success")+" "+task
     else
       log.error("execution failed")
