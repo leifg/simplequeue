@@ -5,7 +5,7 @@ require File.expand_path(File.dirname(__FILE__)+'/../lib/task_adder.rb')
 require File.expand_path(File.dirname(__FILE__)+'/../task_filter.rb')
 
 class TestTaskAdder < Test::Unit::TestCase
-
+  
   class FakeFS::File
     def flock(locking_constant) 
       true
@@ -29,6 +29,22 @@ class TestTaskAdder < Test::Unit::TestCase
     assert_raises ArgumentError do
       TaskAdder.new(nil, "available")
     end
+  end
+  
+  def test_correct_dir_substitution
+    input_queue_dir = "/opt/queue"
+    expected_output_dir = "/opt/queue/"
+    
+    sq_adder = TaskAdder.new(input_queue_dir, "queue.txt")
+    assert_equal expected_output_dir, sq_adder.queue_dir
+  end
+  
+  def test_not_dir_substitution
+    input_queue_dir = "/opt/queue/"
+    expected_output_dir = "/opt/queue/"
+    
+    sq_adder = TaskAdder.new(input_queue_dir, "queue.txt")
+    assert_equal expected_output_dir, sq_adder.queue_dir
   end
   
   def test_if_file_is_created

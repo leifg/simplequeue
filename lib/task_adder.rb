@@ -2,12 +2,18 @@ require 'date'
 require File.expand_path(File.dirname(__FILE__)+'/../task_filter.rb')
 
 class TaskAdder
+    attr_reader :queue_dir, :queue_prefix
+  
   def initialize(queue_dir, queue_prefix)
     if !queue_dir || !queue_prefix 
       raise ArgumentError, "please specify path to queue and a prefix (dir: #{queue_dir}, prefix: #{queue_prefix})"
     end
     
-    @queue_dir = queue_dir + "/" unless queue_dir =~ /\/$/
+    unless queue_dir =~ /\/$/
+      queue_dir = queue_dir + "/"
+    end
+    
+    @queue_dir = queue_dir
     @queue_prefix = queue_prefix
   end
 
